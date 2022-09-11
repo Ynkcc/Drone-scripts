@@ -16,10 +16,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+mkdir -p /harness/src
+cd /harness/src || exit
 
-cd /drone/src/ || exit
-
-HOME="/drone/src"
+HOME="/harness/src"
 
 if [[ "$@" =~ "gcc"* ]]; then
     KBUILD_COMPILER_STRING=$(${HOME}/gcc64/bin/aarch64-elf-gcc --version | head -n1 | sed -e 's/aarch64-elf-gcc\ //' | perl -pe 's/\(//gs' | perl -pe 's/\)//gs')
@@ -49,7 +49,7 @@ COMMIT=$(git rev-parse --short HEAD)
 DATE=$(date +"%d.%m.%y")
 
 # Set Kernel link
-KERNEL_LINK=https://github.com/UtsavBalar1231/kernel_xiaomi_sm8250
+KERNEL_LINK=https://github.com/Ynkcc/kernel_xiaomi_sm8250
 
 # Set Kernel Version
 KERNELVER=$(make kernelversion)
@@ -58,7 +58,8 @@ KERNELVER=$(make kernelversion)
 MESSAGE="$AUTHOR: $REF$KERNEL_LINK/commit/$COMMIT"
 
 # Set our directory
-OUT_DIR=out/
+mkdir -p /harness/out
+OUT_DIR=/harness/out
 
 if [[ "$@" =~ "gcc"* ]]; then
     VERSION=$(echo "${KBUILD_COMPILER_STRING}" | awk '{print $1,$2,$3}')
