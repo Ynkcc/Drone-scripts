@@ -185,6 +185,7 @@ function miui_fix_fod() {
 
 # Post to CI channel
 function tg_post_msg() {
+ echo "ok"
 }
 
 function tg_post_error() {
